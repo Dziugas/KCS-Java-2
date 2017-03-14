@@ -2,6 +2,7 @@ package uzklausos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class Uzklausos {
     private Connection connection;
     public Uzklausos() {
-        try {
+       try {
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/kcs",
                     "root",
@@ -33,11 +34,42 @@ public class Uzklausos {
         int pasirinkimas = sc.nextInt();
         switch(pasirinkimas){
             case 1:
-                System.out.println("Koreguosime lentele. Kurio stulpelio duomenis norite keisti?");
+                koregavimas();
                 break;
             case 2:
-                System.out.println("Trinsime duomenis. Kurį įrašą norite išrinti?");
-                break;
+                trynimas();
+                 break;
         }
+    }
+
+    public void koregavimas() {
+        System.out.println("Redaguosime lentelę. Pridėsime dar vieną studentą");
+        Scanner sc = new Scanner(System.in);
+                System.out.println("Įveskite naują vardą");
+                String name = sc.next();
+                System.out.println("Įveskite naują pavardę");
+                String surname = sc.next();
+                System.out.println("Įveskite naują emeilą");
+                String email = sc.next();
+                System.out.println("Įveskite naują telefono nr.");
+                int phone = sc.nextInt();
+                String insertTableSQL = "INSERT INTO `students`"
+                        + "(`name`,`surname`,`email`,`phone`) VALUES"
+                        + "(?,?,?,?)";
+                try {
+                    PreparedStatement preparedStatement = connection.prepareStatement(insertTableSQL);
+                    preparedStatement.setString(1, name);
+                    preparedStatement.setString(2, surname);
+                    preparedStatement.setString(3, email);
+                    preparedStatement.setInt(4, phone);
+                    preparedStatement.executeUpdate();
+                }
+                catch (Exception klaida){
+                }
+        }
+
+
+    public void trynimas(){
+        System.out.println("Trinsime duomenis. Kurio studento įrašą norite išrinti? Įveskite studento ID");
     }
 }
