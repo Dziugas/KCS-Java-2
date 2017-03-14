@@ -34,7 +34,7 @@ public class Uzklausos {
         int pasirinkimas = sc.nextInt();
         switch(pasirinkimas){
             case 1:
-                koregavimas();
+                redagavimas();
                 break;
             case 2:
                 trynimas();
@@ -42,10 +42,10 @@ public class Uzklausos {
         }
     }
 
-    public void koregavimas() {
+    public void redagavimas() {
         System.out.println("Redaguosime lentelę. Pridėsime dar vieną studentą");
         Scanner sc = new Scanner(System.in);
-                System.out.println("Įveskite naują vardą");
+                System.out.println("Įveskite vardą");
                 String name = sc.next();
                 System.out.println("Įveskite naują pavardę");
                 String surname = sc.next();
@@ -71,5 +71,8 @@ public class Uzklausos {
 
     public void trynimas(){
         System.out.println("Trinsime duomenis. Kurio studento įrašą norite išrinti? Įveskite studento ID");
+     //   try{
+      //      PreparedStatement preparedStatement = connection.prepareStatement()
+      //  }
     }
 }
